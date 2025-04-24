@@ -15,11 +15,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
 from django.views.generic import RedirectView
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
-    path('', RedirectView.as_view(url='/journal/')), 
+    path('', RedirectView.as_view(url='/blog/'), name='home'), 
     path('admin/', admin.site.urls),
-    path('',include('blog.urls')),
-    path('journal/', include('blog.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),  # Django auth URLs
+    path('blog/', include('blog.urls')),
 ]
+
+# Serve static and media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

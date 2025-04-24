@@ -1,0 +1,66 @@
+# Python
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environment
+myvenv/
+venv/
+ENV/
+
+# Environment variables
+.env
+.env.production
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Project specific
+static_root/
+djangogirls_deploy.zip
+deploy-exclude.txt
+deployment.ps1
+requirements_pythonanywhere.txt
+
+# Deployment files that should be created on server
+deploy_commands.sh
+pythonanywhere_wsgi.py
+
+# Keep these files
+!DEPLOYMENT.md
+!QUICK_DEPLOY.md
+!UPLOAD_GUIDE.md
+!FINAL_CHECKLIST.md
+

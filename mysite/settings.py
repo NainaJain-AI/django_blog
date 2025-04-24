@@ -18,17 +18,21 @@ import json
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Load settings from .env file
+SECRET_KEY = config("SECRET_KEY", default="django-insecure-%9!7+2#x$=hq3bxfa%&1=$2!=xu!2w&-z0!qrr3*x*-vb35t0!")
+DEBUG = config("DEBUG", default=False, cast=bool)
+ALLOWED_HOSTS = json.loads(config("ALLOWED_HOSTS", default='["127.0.0.1"]'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%9!7+2#x$=hq3bxfa%&1=$2!=xu!2w&-z0!qrr3*x*-vb35t0!'
+# SECRET_KEY is now set from .env file above
+# SECRET_KEY = 'your-secret-key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.pythonanywhere.com']
+# DEBUG is now set from .env file above
+# ALLOWED_HOSTS is now set from .env file above
 
 
 # Application definition
@@ -58,7 +62,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,11 +127,18 @@ if DEBUG:
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'blog/static'),
     ]
-STATIC_ROOT=os.path.join(BASE_DIR, 'static_root')    
+STATIC_ROOT=os.path.join(BASE_DIR, 'static_root')
+
+# Media files (User uploaded files)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-SECRET_KEY = config("SECRET_KEY")
-DEBUG = config("DEBUG", default=False, cast=bool)
-ALLOWED_HOSTS = json.loads(config("ALLOWED_HOSTS", default='["127.0.0.1"]'))
+
+# Authentication settings
+LOGIN_REDIRECT_URL = '/blog/journal/'
+LOGOUT_REDIRECT_URL = '/blog/'
+LOGIN_URL = '/accounts/login/'
