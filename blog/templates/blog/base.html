@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Journal{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'blog/css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="{% url 'blog:welcome' %}">
+                    <i class="fas fa-book-open"></i>
+                    <span>Daily Diary</span>
+                </a>
+            </div>
+            <div class="navbar-menu">
+                <a href="{% url 'blog:journal' %}" class="nav-link">
+                    <i class="fas fa-calendar-day"></i> Journal
+                </a>
+                <a href="{% url 'blog:add_entry' %}" class="nav-link">
+                    <i class="fas fa-plus-circle"></i> New Entry
+                </a>
+                <div class="user-menu">
+                    {% if user.is_authenticated %}
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-user-circle"></i> {{ user.username }}
+                    </a>
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                    {% else %}
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            {% block content %}
+            <!-- Content will go here -->
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3><i class="fas fa-book-open"></i> Daily Diary</h3>
+                    <p>Your private space for daily reflections</p>
+                </div>
+                <div class="footer-links">
+                    <a href="{% url 'blog:welcome' %}">Home</a>
+                    <a href="{% url 'blog:journal' %}">Journal</a>
+                    <a href="{% url 'blog:add_entry' %}">New Entry</a>
+                </div>
+                <div class="footer-info">
+                    <p>&copy; {% now "Y" %} Daily Diary</p>
+                    <p>Made with <i class="fas fa-heart"></i> for everyday journaling</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
